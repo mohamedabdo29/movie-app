@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">تطبيق افلام</string>
+    <string name="signInText">تسجيل الدخول</string>
+    <string name="enter_email">البريد الالكتروني</string>
+    <string name="password_sign_in">كلمة السر</string>
+    <string name="forget_password"><u></u>نسيت كلمة المرور ؟</string>
+    <string name="have_acco">لديك حساب ؟</string>
+    <string name="do_not_have_acco">ليس لديك حساب  </string>
+    <string name="sign_up">انشاء حساب </string>
+    <string name="name">الاسم</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="phone">الهاتف</string>
+    <string name="password_sign_up">كلمة السر</string>
+    <string name="confirm_pass">تاكيد كلمة السر</string>
+    <string name="address">العنوان</string>
+</resources>

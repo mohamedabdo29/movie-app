@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">MoviesApp</string>
+    <string name="signInText">Sign In</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="password_sign_in">Password</string>
+    <string name="forget_password"><u>forget password ?</u></string>
+    <string name="have_acco">Do you have an account ? Sign In</string>
+    <string name="do_not_have_acco">don.t have an account  </string>
+
+    <string name="sign_up">Sign up</string>
+    <string name="know_us" translatable="false"><u>Know Us</u></string>
+    <string name="term_of" translatable="false"><u>Term of Use</u></string>
+    <string name="sign_out" translatable="false"><u>Sign out</u></string>
+    <string name="about_us" translatable="false">About Us</string>
+    <string name="account" translatable="false">Account</string>
+
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="password_sign_up">Password</string>
+    <string name="confirm_pass">Confirm password</string>
+    <string name="address">Address</string>
+    <string name="home" translatable="false">Home</string>
+    <string name="category" translatable="false">Category</string>
+    <string name="most_popular" translatable="false">Most Popular</string>
+    <string name="favorite" translatable="false">Favorite</string>
+    <string name="skip" translatable="false">SKIP</string>
+
+    <string name="favorite_movies" translatable="false">Favorite Movies</string>
+    <string name="profile" translatable="false">Profile</string>
+
+    <string name="to_show_fav" translatable="false">To show your favorite movies sign up</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+
+</resources>

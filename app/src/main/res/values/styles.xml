@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="ratingBar" parent="Theme.AppCompat">
+
+
+        <item name="android:colorControlActivated">#FBB03B</item>
+        <item name="colorControlNormal">@color/gray3</item>
+    </style>
+</resources>
