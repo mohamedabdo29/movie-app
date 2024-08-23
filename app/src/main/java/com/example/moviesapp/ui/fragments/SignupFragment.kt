@@ -1,4 +1,4 @@
-package com.example.moviesapp.ui
+package com.example.moviesapp.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -13,27 +13,25 @@ import com.example.moviesapp.R
 import com.example.moviesapp.data.local.SharedPreference
 import com.example.moviesapp.data.models.ErrorResponse
 import com.example.moviesapp.data.models.User
-import com.example.moviesapp.data.remote.BaseResponse
 import com.example.moviesapp.data.remote.RetrofitBuilder
-import com.example.moviesapp.databinding.FragmentSigninBinding
-import com.example.moviesapp.shared.enums.LoginSkipStateEnum
+import com.example.moviesapp.databinding.FragmentSignupBinding
 import com.example.moviesapp.shared.enums.LoginStateEnum
 import com.google.gson.Gson
+
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import retrofit2.Response
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
+class SignupFragment : Fragment() {
 
-class SigninFragment : Fragment() {
-
-    private lateinit var binding: FragmentSigninBinding
+    private lateinit var binding: FragmentSignupBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentSigninBinding.inflate(inflater, container, false)
+    ): View {
+        binding = FragmentSignupBinding.inflate(inflater, container, false)
         listener()
         initViews()
 
@@ -41,43 +39,43 @@ class SigninFragment : Fragment() {
     }
 
     private fun initViews() {
-
         (activity as MainActivity).bottomNavVisibility(false)
-
-
-        if (SharedPreference.getLoginState() == LoginStateEnum.LoggedIn.value ||
-            SharedPreference.getSkipLoginState() == LoginSkipStateEnum.SkipLoginState.value
-        ) {
-            findNavController().navigate(R.id.action_signin_to_home)
-        }
-
     }
 
+
     private fun listener() {
+        binding.navToSignIn.setOnClickListener {
 
-        binding.navToSignup.setOnClickListener {
-            findNavController().navigate(R.id.action_signinFragment_to_signupFragment)
+            findNavController().navigate(R.id.action_signupFragment_to_signinFragment)
         }
+        binding.signUpB.setOnClickListener {
 
-        binding.skipBtn.setOnClickListener {
 
-            SharedPreference.saveSkipLoginState(LoginSkipStateEnum.SkipLoginState.value)
-            findNavController().navigate(R.id.action_signin_to_home)
-        }
-
-        binding.signInB.setOnClickListener {
             if (validateTextField()) {
+
                 binding.progressBar.visibility = View.VISIBLE
 
-                signIp()
+                signUp()
+
             }
+
+
         }
     }
 
     private fun validateTextField(): Boolean {
+        val name = binding.nameTf.text.toString().trim()
         val email = binding.emailTf.text.toString().trim()
+        val phone = binding.phoneTf.text.toString().trim()
+        val address = binding.addressTf.text.toString().trim()
         val password = binding.passwordTf.text.toString().trim()
+        val confirmPassword = binding.conformPassTf.text.toString().trim()
 
+        if (name.isEmpty()) {
+            binding.nameTextLayout.error = "name cannot be empty"
+        } else {
+            binding.nameTextLayout.error = null
+        }
 
         if (email.isEmpty()) {
             binding.emailTextLayout.error = "email cannot be empty"
@@ -85,14 +83,31 @@ class SigninFragment : Fragment() {
             binding.emailTextLayout.error = null
         }
 
+        if (address.isEmpty()) {
+            binding.addressTextLayout.error = "address cannot be empty"
+        } else {
+            binding.addressTextLayout.error = null
+        }
+
+        if (phone.isEmpty()) {
+            binding.phoneTextLayout.error = "phone cannot be empty"
+        } else {
+            binding.phoneTextLayout.error = null
+        }
+
+        if (confirmPassword.isEmpty()) {
+            binding.confirmPasswordTextLayout.error = "confirm password cannot be empty"
+        } else {
+            binding.confirmPasswordTextLayout.error = null
+        }
         if (password.isEmpty()) {
             binding.passwordTextLayout.error = "password cannot be empty"
         } else {
             binding.passwordTextLayout.error = null
         }
 
-
-        if (password.isNotEmpty() && email.isNotEmpty()
+        if (name.isNotEmpty() && address.isNotEmpty() && password.isNotEmpty() &&
+            confirmPassword.isNotEmpty() && phone.isNotEmpty() && email.isNotEmpty()
         ) {
             return true
         } else {
@@ -101,16 +116,18 @@ class SigninFragment : Fragment() {
     }
 
 
-    private fun signIp() {
+    private fun signUp() {
 
         lifecycleScope.launch {
+
+
             try {
-                val response = RetrofitBuilder.service.signIn(
+                val response = RetrofitBuilder.service.signUp(
                     User(
-                        name = null,
+                        name = binding.nameTf.text.toString(),
                         email = binding.emailTf.text.toString(),
                         password = binding.passwordTf.text.toString(),
-                        favouriteMovies = null,
+                        favouriteMovies = arrayListOf(),
                         id = null,
                         v = null,
                     ),
@@ -164,18 +181,18 @@ class SigninFragment : Fragment() {
             val user = response.body()
             Log.i("user information", user.toString())
 
+            SharedPreference.saveEmail(user?.email!!)
+
+
             user?.name?.let {
                 SharedPreference.saveName(user.name)
             }
             user?.id?.let {
                 SharedPreference.saveId(user.id)
-
             }
-            SharedPreference.saveEmail(user?.email!!)
-
             SharedPreference.saveLoginState(LoginStateEnum.LoggedIn.value)
 
-            findNavController().navigate(R.id.action_signin_to_home)
+            findNavController().navigate(R.id.action_signupFragment_to_homeFragment)
         } else {
 
             val errorResponse = Gson().fromJson(
@@ -193,5 +210,6 @@ class SigninFragment : Fragment() {
 
 
     }
+
 
 }

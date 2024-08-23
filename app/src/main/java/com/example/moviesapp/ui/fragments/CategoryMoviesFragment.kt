@@ -1,4 +1,4 @@
-package com.example.moviesapp.ui
+package com.example.moviesapp.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.moviesapp.data.models.Category
 import com.example.moviesapp.data.models.Movie
 import com.example.moviesapp.data.remote.RetrofitBuilder
 import com.example.moviesapp.databinding.FragmentCategoryMoviesBinding

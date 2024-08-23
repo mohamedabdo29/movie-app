@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.CategoryFragment">
+    tools:context=".ui.fragments.CategoryFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
@@ -32,7 +32,7 @@
     <androidx.recyclerview.widget.RecyclerView
 
         android:padding="10dp"
-        android:background="@color/gray2"
+        android:background="@color/grey2"
         android:id="@+id/movies_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"

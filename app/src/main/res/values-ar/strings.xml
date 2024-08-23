@@ -14,4 +14,17 @@
     <string name="password_sign_up">كلمة السر</string>
     <string name="confirm_pass">تاكيد كلمة السر</string>
     <string name="address">العنوان</string>
+    <string name="home">الصفحه الرئيسية</string>
+    <string name="category">فئات</string>
+    <string name="most_popular">الأكثر شعبية</string>
+    <string name="favorite">المفضلة</string>
+    <string name="skip">تخطي</string>
+    <string name="favorite_movies">الافلام المفضلة</string>
+    <string name="profile">الحساب</string>
+    <string name="know_us"><u>تعرف علينا</u></string>
+    <string name="term_of"><u>شروط الاستخدام</u></string>
+    <string name="sign_out"><u>تسجيل خروج</u></string>
+    <string name="about_us">معلومات عنا</string>
+    <string name="account">الحساب</string>
+    <string name="to_show_fav">قم بتسجيل الدخول لعرض الافلام المفضلة</string>
 </resources>

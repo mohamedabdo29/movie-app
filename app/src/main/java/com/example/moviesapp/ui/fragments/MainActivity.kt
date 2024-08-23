@@ -1,4 +1,4 @@
-package com.example.moviesapp.ui
+package com.example.moviesapp.ui.fragments
 
 import android.app.Activity
 import android.content.Context

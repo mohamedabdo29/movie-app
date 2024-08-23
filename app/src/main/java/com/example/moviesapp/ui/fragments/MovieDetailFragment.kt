@@ -1,4 +1,4 @@
-package com.example.moviesapp.ui
+package com.example.moviesapp.ui.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,7 +15,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.moviesapp.R
 import com.example.moviesapp.data.local.SharedPreference
@@ -28,7 +27,6 @@ import com.example.moviesapp.data.remote.RetrofitBuilder
 import com.example.moviesapp.databinding.FragmentMovieDetailBinding
 import com.example.moviesapp.shared.enums.LoginStateEnum
 import com.example.moviesapp.ui.adapters.CategoryAdapter
-import com.example.moviesapp.ui.adapters.FavoriteMoviesAdapter
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException

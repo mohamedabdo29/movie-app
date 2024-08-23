@@ -1,61 +1,54 @@
-package com.example.moviesapp.ui
+package com.example.moviesapp.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.example.moviesapp.data.local.SharedPreference
-import com.example.moviesapp.data.models.Movie
+
+import com.example.moviesapp.data.models.Category
 import com.example.moviesapp.data.remote.RetrofitBuilder
-import com.example.moviesapp.databinding.FragmentHomeBinding
-import com.example.moviesapp.ui.adapters.MovieAdapter
+import com.example.moviesapp.databinding.FragmentCategoryBinding
+import com.example.moviesapp.ui.adapters.CategoryAdapter
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import retrofit2.Response
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-class HomeFragment : Fragment() {
-    private lateinit var binding: FragmentHomeBinding
+
+class CategoryFragment : Fragment() {
+    private lateinit var binding: FragmentCategoryBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        binding = FragmentCategoryBinding.inflate(inflater, container, false)
         initView()
         return binding.root
     }
 
     private fun initView() {
-
-        (activity as MainActivity).bottomNavVisibility(true)
-
         binding.progressBar.visibility = View.VISIBLE
 
-
-        getMovies()
-
+        getCategory()
     }
 
     @SuppressLint("SetTextI18n")
-    private fun getMovies() {
+    private fun getCategory() {
         lifecycleScope.launch {
             try {
-                val response = RetrofitBuilder.service.getAllMovies()
+                val response = RetrofitBuilder.service.getAllCategories()
                 observe(response)
             } catch (e: UnknownHostException) {
                 binding.progressBar.visibility = View.GONE
-
                 binding.moviesRv.visibility = View.GONE
                 binding.errorText.visibility = View.VISIBLE
                 binding.errorText.text = "No internet connection ,Try again later."
-
                 Toast.makeText(
                     requireContext(),
                     "No internet connection ,Try again later.",
@@ -63,12 +56,11 @@ class HomeFragment : Fragment() {
                 ).show()
 
             } catch (e: SocketTimeoutException) {
-
-                binding.progressBar.visibility = View.GONE
-
                 binding.moviesRv.visibility = View.GONE
                 binding.errorText.visibility = View.VISIBLE
                 binding.errorText.text = "Request timed out. Please try again."
+
+                binding.progressBar.visibility = View.GONE
 
                 Toast.makeText(
                     requireContext(),
@@ -78,53 +70,52 @@ class HomeFragment : Fragment() {
 
 
             } catch (e: HttpException) {
-
-                binding.progressBar.visibility = View.GONE
-
-
                 binding.moviesRv.visibility = View.GONE
                 binding.errorText.visibility = View.VISIBLE
-                binding.errorText.text = "Server error"
+                binding.errorText.text = "Server error."
+
+
+                binding.progressBar.visibility = View.GONE
 
                 Toast.makeText(context, "Server error", Toast.LENGTH_SHORT).show()
 
 
             } catch (e: Exception) {
-                binding.progressBar.visibility = View.GONE
-
-
-
                 binding.moviesRv.visibility = View.GONE
                 binding.errorText.visibility = View.VISIBLE
-                binding.errorText.text = e.message.toString()
+                binding.errorText.text = e.message
 
+                binding.progressBar.visibility = View.GONE
 
-                Toast.makeText(requireContext(), e.message.toString(), Toast.LENGTH_LONG)
-                    .show()
+                Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    private fun observe(response: Response<MutableList<Movie>>) {
+    private fun observe(response: Response<MutableList<Category>>) {
         binding.progressBar.visibility = View.GONE
 
         if (response.isSuccessful) {
             binding.moviesRv.visibility = View.VISIBLE
             binding.errorText.visibility = View.GONE
-            val movieList = response.body()
 
-            binding.moviesRv.adapter = movieList?.let {
-                MovieAdapter(it, requireContext())
+            val categoryList = response.body()
 
-            }
 
+            val adapter = categoryList?.let { CategoryAdapter(it, requireContext()) }
+
+            adapter?.viewType = CategoryAdapter.VIEW_TYPE_ONE
+
+            binding.moviesRv.adapter = adapter
         } else {
             binding.moviesRv.visibility = View.GONE
             binding.errorText.visibility = View.VISIBLE
             binding.errorText.text = response.message().toString()
+
             Toast.makeText(requireContext(), response.message(), Toast.LENGTH_LONG).show()
 
         }
+
     }
 
 

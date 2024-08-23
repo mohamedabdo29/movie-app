@@ -1,55 +1,80 @@
-package com.example.moviesapp.ui
+package com.example.moviesapp.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-
-import com.example.moviesapp.data.models.Category
+import androidx.navigation.fragment.findNavController
+import com.example.moviesapp.R
+import com.example.moviesapp.data.local.SharedPreference
+import com.example.moviesapp.data.models.Favorite
 import com.example.moviesapp.data.remote.RetrofitBuilder
-import com.example.moviesapp.databinding.FragmentCategoryBinding
-import com.example.moviesapp.ui.adapters.CategoryAdapter
+import com.example.moviesapp.databinding.FragmentFavoriteMoviesBinding
+import com.example.moviesapp.shared.enums.LoginStateEnum
+import com.example.moviesapp.ui.adapters.FavoriteMoviesAdapter
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import retrofit2.Response
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-
-class CategoryFragment : Fragment() {
-    private lateinit var binding: FragmentCategoryBinding
+class FavoriteMoviesFragment : Fragment() {
+    lateinit var binding: FragmentFavoriteMoviesBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
 
-        binding = FragmentCategoryBinding.inflate(inflater, container, false)
+    ): View? {
+        binding = FragmentFavoriteMoviesBinding.inflate(inflater, container, false)
+
         initView()
         return binding.root
     }
 
     private fun initView() {
-        binding.progressBar.visibility = View.VISIBLE
 
-        getCategory()
+        if (SharedPreference.getLoginState() == LoginStateEnum.LoggedIn.value) {
+            binding.progressBar.visibility = View.VISIBLE
+            getFavorite()
+
+        } else {
+            findNavController().navigate(R.id.action_favoriteMoviesFragment_to_toShowFavoriteFragment)
+
+        }
+
     }
 
     @SuppressLint("SetTextI18n")
-    private fun getCategory() {
+    private fun getFavorite() {
+
         lifecycleScope.launch {
+
+
             try {
-                val response = RetrofitBuilder.service.getAllCategories()
-                observe(response)
+                val response = SharedPreference.getId()?.let {
+                    RetrofitBuilder.service.getFavorite(
+                        userId = it
+                    )
+                }
+
+                if (response != null) {
+                    observe(response)
+                }
+
+
             } catch (e: UnknownHostException) {
                 binding.progressBar.visibility = View.GONE
+
                 binding.moviesRv.visibility = View.GONE
                 binding.errorText.visibility = View.VISIBLE
+
                 binding.errorText.text = "No internet connection ,Try again later."
+
                 Toast.makeText(
                     requireContext(),
                     "No internet connection ,Try again later.",
@@ -57,12 +82,11 @@ class CategoryFragment : Fragment() {
                 ).show()
 
             } catch (e: SocketTimeoutException) {
+
+                binding.progressBar.visibility = View.GONE
                 binding.moviesRv.visibility = View.GONE
                 binding.errorText.visibility = View.VISIBLE
                 binding.errorText.text = "Request timed out. Please try again."
-
-                binding.progressBar.visibility = View.GONE
-
                 Toast.makeText(
                     requireContext(),
                     "Request timed out. Please try again.",
@@ -73,9 +97,7 @@ class CategoryFragment : Fragment() {
             } catch (e: HttpException) {
                 binding.moviesRv.visibility = View.GONE
                 binding.errorText.visibility = View.VISIBLE
-                binding.errorText.text = "Server error."
-
-
+                binding.errorText.text = "Server error"
                 binding.progressBar.visibility = View.GONE
 
                 Toast.makeText(context, "Server error", Toast.LENGTH_SHORT).show()
@@ -84,40 +106,40 @@ class CategoryFragment : Fragment() {
             } catch (e: Exception) {
                 binding.moviesRv.visibility = View.GONE
                 binding.errorText.visibility = View.VISIBLE
-                binding.errorText.text = e.message
-
+                binding.errorText.text = e.message.toString()
                 binding.progressBar.visibility = View.GONE
 
-                Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), e.message.toString(), Toast.LENGTH_LONG)
+                    .show()
             }
         }
     }
 
-    private fun observe(response: Response<MutableList<Category>>) {
+    private fun observe(response: Response<Favorite>) {
         binding.progressBar.visibility = View.GONE
+
 
         if (response.isSuccessful) {
             binding.moviesRv.visibility = View.VISIBLE
             binding.errorText.visibility = View.GONE
+            val favoriteList = response.body()?.favouriteMovies
+            binding.moviesRv.adapter =
+                favoriteList?.let { FavoriteMoviesAdapter(it, requireContext()) }
 
-            val categoryList = response.body()
-
-
-            val adapter = categoryList?.let { CategoryAdapter(it, requireContext()) }
-
-            adapter?.viewType = CategoryAdapter.VIEW_TYPE_ONE
-
-            binding.moviesRv.adapter = adapter
         } else {
             binding.moviesRv.visibility = View.GONE
             binding.errorText.visibility = View.VISIBLE
             binding.errorText.text = response.message().toString()
 
-            Toast.makeText(requireContext(), response.message(), Toast.LENGTH_LONG).show()
+            Log.i("error messagge", response.message().toString())
+            Toast.makeText(
+                requireContext(),
+                response.message().toString(),
+                Toast.LENGTH_LONG
+            ).show()
 
         }
 
+
     }
-
-
 }

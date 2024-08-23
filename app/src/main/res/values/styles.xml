@@ -6,6 +6,6 @@
 
 
         <item name="android:colorControlActivated">#FBB03B</item>
-        <item name="colorControlNormal">@color/gray3</item>
+        <item name="colorControlNormal">@color/grey3</item>
     </style>
 </resources>

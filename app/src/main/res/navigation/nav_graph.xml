@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signinFragment"
-        android:name="com.example.moviesapp.ui.SigninFragment"
+        android:name="com.example.moviesapp.ui.fragments.SigninFragment"
         android:label="SigninFragment">
 
         <action
@@ -22,7 +22,7 @@
     <fragment
 
         android:id="@+id/signupFragment"
-        android:name="com.example.moviesapp.ui.SignupFragment"
+        android:name="com.example.moviesapp.ui.fragments.SignupFragment"
         android:label="SignupFragment">
 
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.moviesapp.ui.HomeFragment"
+        android:name="com.example.moviesapp.ui.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.example.moviesapp.ui.CategoryFragment"
+        android:name="com.example.moviesapp.ui.fragments.CategoryFragment"
         android:label="fragment_category"
         tools:layout="@layout/fragment_category">
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.example.moviesapp.ui.MovieDetailFragment"
+        android:name="com.example.moviesapp.ui.fragments.MovieDetailFragment"
         android:label="fragment_movie_detail"
         tools:layout="@layout/fragment_movie_detail">
         <argument
@@ -66,7 +66,7 @@
     </fragment>
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.example.moviesapp.ui.CategoryMoviesFragment"
+        android:name="com.example.moviesapp.ui.fragments.CategoryMoviesFragment"
         android:label="fragment_movies"
         tools:layout="@layout/fragment_category_movies">
 
@@ -85,7 +85,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoriteMoviesFragment"
-        android:name="com.example.moviesapp.ui.FavoriteMoviesFragment"
+        android:name="com.example.moviesapp.ui.fragments.FavoriteMoviesFragment"
         android:label="FavoriteMoviesFragment">
         <action
             android:id="@+id/action_favoriteMoviesFragment_to_movieDetailFragment"
@@ -96,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/toShowFavoriteFragment"
-        android:name="com.example.moviesapp.ui.ToShowFavoriteFragment"
+        android:name="com.example.moviesapp.ui.fragments.ToShowFavoriteFragment"
         android:label="fragment_to_show_favorite"
         tools:layout="@layout/fragment_to_show_favorite">
 
@@ -109,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.moviesapp.ui.ProfileFragment"
+        android:name="com.example.moviesapp.ui.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
 
@@ -125,7 +125,7 @@
     </fragment>
     <fragment
         android:id="@+id/toShowProfileFragment"
-        android:name="com.example.moviesapp.ui.ToShowProfileFragment"
+        android:name="com.example.moviesapp.ui.fragments.ToShowProfileFragment"
         android:label="fragment_to_show_profile"
         tools:layout="@layout/fragment_to_show_profile">
         <action
@@ -137,7 +137,3 @@
 
 </navigation>
 
-
-    <!--<action-->
-    <!--android:id="@+id/action_signUp_to_signIn"-->
-    <!--app:destination="@+id/signinFragment" />-->

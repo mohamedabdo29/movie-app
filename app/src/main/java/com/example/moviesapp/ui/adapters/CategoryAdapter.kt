@@ -1,63 +1,3 @@
-//package com.example.moviesapp.ui.adapters
-//
-//import android.content.Context
-//import android.view.LayoutInflater
-//import android.view.ViewGroup
-//import androidx.navigation.findNavController
-//import androidx.recyclerview.widget.RecyclerView
-//import com.bumptech.glide.Glide
-//import com.example.moviesapp.R
-//import com.example.moviesapp.data.models.Category
-//import com.example.moviesapp.databinding.CategoryItemBinding
-//import com.example.moviesapp.ui.CategoryFragmentDirections
-//
-//
-//class CategoryAdapter(
-//    private val categoryList: MutableList<Category>,
-//    private val context: Context
-//) :
-//    RecyclerView.Adapter<CategoryViewHolder>() {
-//
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-//        val binding =
-//            CategoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//        return CategoryViewHolder(binding)
-//    }
-//
-//    override fun getItemCount() = categoryList.size
-//
-//    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-//        holder.categoryName.text = categoryList[position].name
-//        //holder.rating.rating = categoryList[position].rating
-//        Glide
-//            .with(context)
-//            .load(
-//                categoryList[position].image
-//            )
-//            .placeholder(R.drawable.image_placeholder)
-//            .into(holder.image)
-//
-//
-//        holder.itemView.setOnClickListener {
-//
-//
-//            val action =
-//                CategoryFragmentDirections.actionCategoryFragmentToMoviesFragment(
-//                    categoryList[position].id,
-//                    categoryList[position].name
-//                )
-//            it.findNavController().navigate(action)
-//        }
-//    }
-//}
-//
-//class CategoryViewHolder(categoryItemView: CategoryItemBinding) :
-//    RecyclerView.ViewHolder(categoryItemView.root) {
-//    val image = categoryItemView.categoryImage
-//    val categoryName = categoryItemView.categoryName
-//    //val rating = categoryItemView.ratingBar
-//}
 package com.example.moviesapp.ui.adapters
 
 import android.content.Context
@@ -70,7 +10,7 @@ import com.example.moviesapp.R
 import com.example.moviesapp.data.models.Category
 import com.example.moviesapp.databinding.CategoryItemBinding
 import com.example.moviesapp.databinding.MovieCategoryDetailBinding
-import com.example.moviesapp.ui.CategoryFragmentDirections
+import com.example.moviesapp.ui.fragments.CategoryFragmentDirections
 
 
 class CategoryAdapter(
@@ -159,41 +99,12 @@ class CategoryAdapter(
 
 class MovieCategoryViewHolder(categoryItemView: MovieCategoryDetailBinding) :
     RecyclerView.ViewHolder(categoryItemView.root) {
-    //    val image = categoryItemView.categoryImage
     val categoryName = categoryItemView.categoryName
-    //val rating = categoryItemView.ratingBar
 }
 
 class CategoryViewHolder(categoryItemView: CategoryItemBinding) :
     RecyclerView.ViewHolder(categoryItemView.root) {
     val image = categoryItemView.categoryImage
     val categoryName = categoryItemView.categoryName
-    //val rating = categoryItemView.ratingBar
 }
-
-
-//    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-//        holder.categoryName.text = categoryList[position].name
-//        //holder.rating.rating = categoryList[position].rating
-//        Glide
-//            .with(context)
-//            .load(
-//                categoryList[position].image
-//            )
-//            .placeholder(R.drawable.image_placeholder)
-//            .into(holder.image)
-//
-//
-//        holder.itemView.setOnClickListener {
-//
-//
-//            val action =
-//                CategoryFragmentDirections.actionCategoryFragmentToMoviesFragment(
-//                    categoryList[position].id,
-//                    categoryList[position].name
-//                )
-//            it.findNavController().navigate(action)
-//        }
-//    }
-
 

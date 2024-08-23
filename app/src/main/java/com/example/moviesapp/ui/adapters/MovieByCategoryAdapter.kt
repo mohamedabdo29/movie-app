@@ -9,8 +9,8 @@ import com.bumptech.glide.Glide
 import com.example.moviesapp.R
 import com.example.moviesapp.data.models.Movie
 import com.example.moviesapp.databinding.CategoryMovieItemBinding
-import com.example.moviesapp.databinding.MovieItemBinding
-import com.example.moviesapp.ui.CategoryMoviesFragmentDirections
+
+import com.example.moviesapp.ui.fragments.CategoryMoviesFragmentDirections
 
 class MovieByCategoryAdapter(
     private val moviesList: MutableList<Movie>,

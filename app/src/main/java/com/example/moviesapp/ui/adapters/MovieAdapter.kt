@@ -9,8 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.moviesapp.R
 import com.example.moviesapp.data.models.Movie
 import com.example.moviesapp.databinding.MovieItemBinding
-import com.example.moviesapp.ui.CategoryMoviesFragmentDirections
-import com.example.moviesapp.ui.HomeFragmentDirections
+import com.example.moviesapp.ui.fragments.HomeFragmentDirections
 
 class MovieAdapter(private val moviesList: MutableList<Movie>, private val context: Context) :
     RecyclerView.Adapter<MovieViewHolder>() {
